@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  MainTabControllerViewController.swift
 //  Mob-Weather
 //
 //  Created by Burak Donat on 10.09.2020.
@@ -8,11 +8,10 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class MainTabController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+
     }
 }
-
