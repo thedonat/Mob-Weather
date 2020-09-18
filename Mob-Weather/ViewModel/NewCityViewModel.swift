@@ -39,18 +39,15 @@ class NewCityListViewModel {
         for city in self.contactArray {
             if let name = city?.name {
                 let key = "\(name[name.startIndex])"
-                print(key)
                 let lower = key.lowercased()
                 if var value = contactDictionary[lower] {
                     value.append(name)
-                    print(value)
                     contactDictionary[lower] = value
                 } else {
                     contactDictionary[lower] = [name]
                 }
             }
         }
-        print(contactSection)
         contactSection = [String](contactDictionary.keys)
         contactSection = contactSection.sorted()
     }
@@ -71,6 +68,7 @@ class NewCityListViewModel {
         if let b = contactDictionary[a] {
             if !selectedCities.contains(b[row]) {
                 selectedCities.append(b[row])
+                
                 defaults.set(selectedCities, forKey: "Y")
             }
             else {
@@ -78,7 +76,6 @@ class NewCityListViewModel {
                 defaults.set(selectedCities, forKey: "Y")
             }
         }
-        print(selectedCities)
     }
     
     func getSelecteds() {
