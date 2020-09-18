@@ -14,11 +14,13 @@ class CityCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    
+    func setSelectedCell(_ selected: Bool) {
+        if selected {
+            self.backgroundColor = .purple
+         } else {
+            self.backgroundColor = .clear
+        }
     }
 
 }

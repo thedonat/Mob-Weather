@@ -8,4 +8,4 @@
 
 import Foundation
 
-//let cityURL = "https://weathercase-99549.firebaseio.com/.json"
+let cityURL = "https://weathercase-99549.firebaseio.com/.json"

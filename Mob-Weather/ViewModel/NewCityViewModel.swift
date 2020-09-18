@@ -12,15 +12,22 @@ protocol NewCityListViewModelProtocol: class {
     func getCityList()
 }
 
+protocol SelectedCitiesProtocol: class {
+    func getSelectedCities()
+}
+
 class NewCityListViewModel {
     weak var delegate : NewCityListViewModelProtocol?
     var contactArray: [City?] = []
     var contactSection: [String] = []
     var contactDictionary = [String: [String]]()
+    var selectedCities = [String]()
+    var defaults = UserDefaults.standard
     
     var numberOfRows: Int {
         return contactArray.count
     }
+
     func cellForRow(at index: Int) -> NewCityViewModel? {
         if let city = self.contactArray[index] {
             return NewCityViewModel(city: city)
@@ -49,11 +56,34 @@ class NewCityListViewModel {
     }
     
     func getData() {
-        let cityURL = "https://weathercase-99549.firebaseio.com/.json"
         WebService().performRequest(url: cityURL) { (city: [City]) in
             self.contactArray = city
             self.getSections()
             self.delegate?.getCityList()
+        }
+    }
+    
+    func handleCitySelection(at section: Int, at row: Int) {
+        if let selecteds = defaults.value(forKey: "Y") as? [String] {
+            self.selectedCities = selecteds
+        }
+        let a = contactSection[section]
+        if let b = contactDictionary[a] {
+            if !selectedCities.contains(b[row]) {
+                selectedCities.append(b[row])
+                defaults.set(selectedCities, forKey: "Y")
+            }
+            else {
+                selectedCities = selectedCities.filter { $0 != b[row] }
+                defaults.set(selectedCities, forKey: "Y")
+            }
+        }
+        print(selectedCities)
+    }
+    
+    func getSelecteds() {
+        if let selecteds = defaults.value(forKey: "Y") as? [String] {
+            self.selectedCities = selecteds
         }
     }
 }
